@@ -5,7 +5,15 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module Alipay
         class Return < ActiveMerchant::Billing::Integrations::Return
-          include Sign
+          include Common
+
+          def success?
+            @params['is_success'] == 'T'
+          end
+
+          def message
+            @message
+          end
 
           def order
             @params["out_trade_no"]
@@ -19,25 +27,13 @@ module ActiveMerchant #:nodoc:
             @params["notify_id"]
           end
 
-          def initialize(query_string)
-            super
-          end
-          
-          def success?
-            @params['is_success'] == 'T'
-          end
-
-          def signed
-            unless @params["sign"] && verify_sign
+          def acknowledge
+            unless signed?
               @message = "Alipay Error: ILLEGAL_SIGN"
               return false
             end
 
             true
-          end
-
-          def message
-            @message
           end
 
         end

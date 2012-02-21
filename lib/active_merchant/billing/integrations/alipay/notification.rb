@@ -6,27 +6,27 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module Alipay
         class Notification < ActiveMerchant::Billing::Integrations::Notification
-          include Sign
+          include Common
 
           def complete?
             trade_status == "TRADE_FINISHED"
           end
 
           def success?
-            trade_status == 'TRADE_FINISHED' || trade_status == 'TRADE_SUCCESS'
+            trade_status == 'TRADE_SUCCESS'
           end
 
           def pending?
             trade_status == 'WAIT_BUYER_PAY'
           end
 
-          def status
-            trade_status
+          def acknowledge
+            raise StandardError.new("Faulty alipay response: #{params}") unless signed?
+            true
           end
 
-          def acknowledge
-            raise StandardError.new("Faulty alipay result: ILLEGAL_SIGN") unless verify_sign
-            true
+          def status
+            trade_status
           end
 
           ['extra_common_param', 'notify_type', 'notify_id', 'out_trade_no', 'trade_no', 'payment_type', 'subject', 'body',

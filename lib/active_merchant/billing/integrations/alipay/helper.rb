@@ -6,10 +6,22 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module Alipay
         class Helper < ActiveMerchant::Billing::Integrations::Helper
+          include Common
+
           CREATE_DIRECT_PAY_BY_USER = 'create_direct_pay_by_user'
           CREATE_PARTNER_TRADE_BY_BUYER = 'create_partner_trade_by_buyer'
           TRADE_CREATE_BY_BUYER = 'trade_create_by_buyer'
           CREATE_FOREIGN_TRADE = 'create_forex_trade'
+
+          def initialize(order, account, options = {})
+            super
+          end
+
+          def sign
+            add_field('sign', signature(@fields))
+            add_field('sign_type', 'MD5')
+            nil
+          end
 
           ###################################################
           # common
@@ -68,19 +80,6 @@ module ActiveMerchant #:nodoc:
           #################################################
           mapping :agent, 'agent'
           mapping :buyer_msg, 'buyer_msg'
-
-          def initialize(order, account, options = {})
-            super
-          end
-
-          def sign
-            add_field('sign',
-                      Digest::MD5.hexdigest((@fields.sort.collect{|s|s[0]+"="+CGI.unescape(s[1])}).join("&")+KEY)
-                     )
-            add_field('sign_type', 'MD5')
-            nil
-          end
-
         end
       end
     end
