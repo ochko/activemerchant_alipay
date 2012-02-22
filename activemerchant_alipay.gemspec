@@ -5,15 +5,31 @@
 
 Gem::Specification.new do |s|
   s.name = "activemerchant_alipay"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lkhagva Ochirkhuyag"]
-  s.date = "2012-02-21"
+  s.date = "2012-02-22"
   s.description = "Activemerchant patch for china online payment platform alipay"
   s.email = "ochkoo@gmail.com"
   s.extra_rdoc_files = [
     "README.textile"
+  ]
+  s.files = [
+    "MIT-LICENSE",
+    "README.textile",
+    "Rakefile",
+    "VERSION",
+    "activemerchant_alipay.gemspec",
+    "init.rb",
+    "lib/active_merchant/billing/integrations/alipay.rb",
+    "lib/active_merchant/billing/integrations/alipay/common.rb",
+    "lib/active_merchant/billing/integrations/alipay/helper.rb",
+    "lib/active_merchant/billing/integrations/alipay/notification.rb",
+    "lib/active_merchant/billing/integrations/alipay/return.rb",
+    "lib/activemerchant_alipay.rb",
+    "test/activemerchant_alipay_test.rb",
+    "test/test_helper.rb"
   ]
   s.homepage = "http://github.com/ochko/activemerchant_alipay"
   s.require_paths = ["lib"]
