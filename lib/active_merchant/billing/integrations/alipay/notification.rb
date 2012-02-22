@@ -1,5 +1,4 @@
-require 'net/http'
-require 'active_merchant/billing/integrations/alipay/sign'
+require 'cgi'
 
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:

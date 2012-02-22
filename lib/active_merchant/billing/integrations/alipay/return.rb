@@ -1,5 +1,3 @@
-require 'active_merchant/billing/integrations/alipay/sign.rb'
-
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     module Integrations #:nodoc:
